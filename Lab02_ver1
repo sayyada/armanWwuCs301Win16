@@ -1,0 +1,18 @@
+#lang racket
+(define (calc contFrac k)
+  (match/values (contFrac 0)
+    [(d0 n0)
+      (+ d0
+         (for/fold ([t 0.0]) ([i (in-range (+ k 1) 0  -1)])
+           (match/values (contFrac i)
+              [(d n) (/ n (+ d t))])))]))
+
+(define (contFrac-phi a)
+  (values (if (> a 0) 1 1) 1))
+
+(calc contFrac-phi 200)
+
+
+(define (contFrac-tan t)
+  (values (if (> t 0) (+(*(t)(t)) 0) t)  
+(calc contFrac-tan 200)
